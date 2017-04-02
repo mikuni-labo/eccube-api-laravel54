@@ -13,6 +13,20 @@ use Illuminate\Foundation\Inspiring;
 |
 */
 
+/**
+ * Inspire...
+ */
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+/**
+ * Refresh...
+ */
+Artisan::command('refresh', function ()
+{
+    $this->call('config:cache');
+    $this->call('route:cache');
+    $this->call('view:clear');
+//     $this->call('optimize');
+})->describe('Do Refresh Commands!');
