@@ -13,6 +13,37 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+/**
+ * @var \Illuminate\Routing\Router $router
+ */
+$router->middleware('api')
+        ->namespace('Api')
+        ->group( function () use ($router)
+{
+    /**
+     * Orders
+     */
+    
+    /**
+     * Products
+     */
+    
+    /**
+     * Customers
+     */
+    
+    /**
+     * Users (Test)
+     */
+    $router->namespace('Users')
+           ->prefix('users')
+           ->group( function () use ($router)
+    {
+        $router->name('api.users')->get('/', UsersController::class. '@index');
+    });
+    
+   /**
+    * test
+    */
+    $router->name('api.test')->get('test', TestController::class. '@test');
+});
