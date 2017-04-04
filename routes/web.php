@@ -11,6 +11,4 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::name('welcome')->get('/', Controller::class. '@welcome');

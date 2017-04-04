@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +11,9 @@ use Illuminate\Http\Request;
 |
 */
 
-/**
- * @var \Illuminate\Routing\Router $router
- */
-$router->middleware('api')
-        ->namespace('Api')
-        ->group( function () use ($router)
+Route::middleware('api')
+    ->namespace('Api')
+    ->group( function ()
 {
     /**
      * Orders
@@ -35,15 +30,15 @@ $router->middleware('api')
     /**
      * Users (Test)
      */
-    $router->namespace('Users')
-           ->prefix('users')
-           ->group( function () use ($router)
+    Route::namespace('Users')
+       ->prefix('users')
+       ->group( function ()
     {
-        $router->name('api.users')->get('/', UsersController::class. '@index');
+        Route::name('api.users')->get('/', UsersController::class. '@index');
     });
     
    /**
     * test
     */
-    $router->name('api.test')->get('test', TestController::class. '@test');
+    Route::name('api.test')->get('test', TestController::class. '@test');
 });
