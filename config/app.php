@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'Laravel',
+    'name' => env('APP_NAME', 'Laravel'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Tokyo'),
 
     /*
     |--------------------------------------------------------------------------
@@ -77,7 +77,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => env('APP_LOCALE', 'ja'),
 
     /*
     |--------------------------------------------------------------------------
@@ -90,7 +90,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => env('APP_FALLBACK_LOCALE', 'ja'),
 
     /*
     |--------------------------------------------------------------------------
@@ -103,9 +103,8 @@ return [
     |
     */
 
-    'key' => env('APP_KEY'),
-
-    'cipher' => 'AES-256-CBC',
+    'key'    => env('APP_KEY'),
+    'cipher' => env('APP_CIPHER', 'AES-256-CBC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -120,8 +119,8 @@ return [
     |
     */
 
-    'log' => env('APP_LOG', 'single'),
-
+    'log'       => env('APP_LOG', 'single'),
+    'log_level' => env('APP_LOG_LEVEL', 'debug'),
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
     /*
@@ -176,6 +175,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\LocalServiceProvider::class,       // ローカル環境サービスプロバイダ
 
     ],
 
@@ -225,7 +225,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Carbon'    => Carbon\Carbon::class,
     ],
 
 ];
