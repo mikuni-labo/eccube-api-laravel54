@@ -16,25 +16,29 @@ Route::middleware('api')
     ->group( function ()
 {
     /**
-     * Orders
+     * B2C
      */
-    
-    /**
-     * Products
-     */
-    
-    /**
-     * Customers
-     */
-    
-    /**
-     * Users (Test)
-     */
-    Route::namespace('Users')
-       ->prefix('users')
-       ->group( function ()
+    Route::namespace('B2c')
+        ->prefix('b2c')
+        ->group( function ()
     {
-        Route::name('api.users')->get('/', UsersController::class. '@index');
+        /**
+         * Orders
+         */
+        Route::namespace('Orders')
+            ->prefix('orders')
+            ->group( function ()
+        {
+            Route::name('api.b2c.orders')->get('/', OrdersController::class. '@index');
+        });
+        
+        /**
+         * Products
+         */
+        
+        /**
+         * Customers
+         */
     });
     
    /**
