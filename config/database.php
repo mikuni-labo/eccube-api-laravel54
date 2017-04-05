@@ -51,7 +51,7 @@ return [
             'collation'   => 'utf8_general_ci',
             'prefix'      => '',
             'strict'      => true,
-            'engine'      => null,
+            'engine'      => 'InnoDB',
         ],
 
         'mysql_eccube2_b2c' => [
@@ -66,7 +66,7 @@ return [
             'collation'   => 'utf8_general_ci',
             'prefix'      => '',
             'strict'      => true,
-            'engine'      => null,
+            'engine'      => 'InnoDB',
         ],
 
         'mysql_eccube2_b2b' => [
@@ -81,7 +81,7 @@ return [
             'collation'   => 'utf8_general_ci',
             'prefix'      => '',
             'strict'      => true,
-            'engine'      => null,
+            'engine'      => 'InnoDB',
         ],
 
         'pgsql' => [
