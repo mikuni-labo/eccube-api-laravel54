@@ -15,10 +15,10 @@ class Order extends AbstractB2cModel
     
     protected $table = 'dtb_order';
     protected $primaryKey = 'order_id';
-//     protected $dateFormat = 'r';// 小数点以下の値を持つtimestamp型のカラムだとparse出来ずにエラーを吐く・・
+    protected $dateFormat = 'Y-m-d H:i:s';
     
     protected $fillable = [
-        
+        //
     ];
 
     protected $hidden = [
@@ -33,7 +33,7 @@ class Order extends AbstractB2cModel
     ];
 
     protected $casts = [
-    
+        //
     ];
 
     /**
@@ -44,7 +44,7 @@ class Order extends AbstractB2cModel
     protected static function boot()
     {
         parent::boot();
-    
+        
         static::addGlobalScope(new AliveScope());
     }
 

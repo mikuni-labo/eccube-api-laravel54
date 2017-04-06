@@ -7,6 +7,8 @@ use App\Models\B2c\Order;
 
 class OrdersController extends Controller
 {
+    private $data = [];
+    
     public function __construct()
     {
         //
@@ -14,13 +16,20 @@ class OrdersController extends Controller
     
     public function index()
     {
-//         foreach ( Order::all() as $Order )
-//         {
-//             dd( $Order->order_details()->get() );
-//         }
+        $this->data['orders'] = [];
         
-        return response()->json([
-            'orders' => Order::all(),
-        ]);
+        $this->setOrders();
+        
+        return response()->json($this->data);
     }
+
+    private function setOrders()
+    {
+        foreach ( Order::all() as $Order )
+        {
+            $Order->orderDetails = $Order->order_details()->get();
+            $this->data['orders'][] = $Order;
+        }
+    }
+
 }
