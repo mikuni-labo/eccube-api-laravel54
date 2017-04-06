@@ -14,6 +14,11 @@ class OrdersController extends Controller
     
     public function index()
     {
+//         foreach ( Order::all() as $Order )
+//         {
+//             dd( $Order->order_details()->get() );
+//         }
+        
         return response()->json([
             'orders' => Order::all(),
         ]);

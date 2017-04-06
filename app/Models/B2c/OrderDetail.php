@@ -3,9 +3,8 @@
 namespace App\Models\B2c;
 
 use App\Models\B2c\AbstractB2cModel;
-use App\Scopes\AliveScope;
 
-class Order extends AbstractB2cModel
+class OrderDetail extends AbstractB2cModel
 {
     const CREATED_AT = 'create_date';
     const UPDATED_AT = 'update_date';
@@ -13,7 +12,7 @@ class Order extends AbstractB2cModel
     public $timestamps = true;
     public $incrementing = true;
     
-    protected $table = 'dtb_order';
+    protected $table = 'dtb_order_detail';
     protected $primaryKey = 'order_id';
 //     protected $dateFormat = 'r';// 小数点以下の値を持つtimestamp型のカラムだとparse出来ずにエラーを吐く・・
     
@@ -37,25 +36,13 @@ class Order extends AbstractB2cModel
     ];
 
     /**
-     * モデルの「初期起動」メソッド
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-    
-        static::addGlobalScope(new AliveScope());
-    }
-
-    /**
-     * 紐付く受注詳細
+     * 属する受注情報
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function order_details()
+    public function order()
     {
-        return $this->hasMany('App\Models\B2c\OrderDetail','order_id');
+        return $this->belongsTo('App\Models\B2c\Order', 'order_id');
     }
 
 }
