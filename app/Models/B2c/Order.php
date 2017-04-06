@@ -58,4 +58,14 @@ class Order extends AbstractB2cModel
         return $this->hasMany('App\Models\B2c\OrderDetail','order_id');
     }
 
+    /**
+     * 紐付く配送先
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function shippings()
+    {
+        return $this->hasMany('App\Models\B2c\Shipping','order_id');
+    }
+
 }

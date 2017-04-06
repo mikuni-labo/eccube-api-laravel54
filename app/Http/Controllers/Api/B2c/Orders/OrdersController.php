@@ -27,6 +27,8 @@ class OrdersController extends Controller
     {
         foreach ( Order::all() as $Order )
         {
+            dd( $Order->shippings()->get() );
+            
             $Order->orderDetails = $Order->order_details()->get();
             $this->data['orders'][] = $Order;
         }
