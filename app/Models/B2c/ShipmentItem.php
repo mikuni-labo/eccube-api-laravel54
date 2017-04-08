@@ -50,8 +50,8 @@ class ShipmentItem extends AbstractB2cModel
             $join->on('dtb_shipping.shipping_id', '=', 'dtb_shipment_item.shipping_id');
         });
         
-        $query->where('dtb_shipment_item.order_id',    '=', $this->order_id);
-        $query->where('dtb_shipment_item.shipping_id', '=', $this->shipping_id);
+        $query->where('dtb_shipping.order_id',    '=', $this->order_id);
+        $query->where('dtb_shipping.shipping_id', '=', $this->shipping_id);
         
         return $query;
     }

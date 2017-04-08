@@ -98,8 +98,8 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'access_token'     => [
+            'api_access_token' => ':attribute is InValid.',
         ],
     ],
 

@@ -99,4 +99,7 @@ return [
         ],
     ],
 
+    'api' => [
+        'access_token' => env('API_ACCESS_TOKEN'),
+    ],
 ];

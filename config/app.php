@@ -176,6 +176,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\LocalServiceProvider::class,       // ローカル環境サービスプロバイダ
+        App\Providers\ValidatorServiceProvider::class,   // カスタムバリデーター
 
     ],
 
