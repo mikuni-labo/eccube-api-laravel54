@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api\B2c\Orders;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Orders\ApiOrdersSearchRequest;
 use App\Models\B2c\Order;
 use App\Models\B2c\OrderDetail;
 use App\Models\B2c\ShipmentItem;
 use App\Models\B2c\Shipping;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Validator;
 
 class OrdersController extends Controller
 {
@@ -18,12 +21,16 @@ class OrdersController extends Controller
         //
     }
 
-    public function index() : JsonResponse
+    public function index(ApiOrdersSearchRequest $ApiOrdersSearchRequest) : JsonResponse
     {
+        $Validator = Validator::make(request()->all(), $ApiOrdersSearchRequest->rules(), $ApiOrdersSearchRequest->messages(), $ApiOrdersSearchRequest->attributes());
+        
+        if( $Validator->fails() ) return $this->responseError($Validator, Response::HTTP_BAD_REQUEST);
+        
         $this->json['orders'] = [];
         $this->json['orders'][] = $this->setOrders();
         
-        return response()->json($this->json, 200);
+        return response()->json($this->json, Response::HTTP_OK);
     }
 
     private function setOrders() : array

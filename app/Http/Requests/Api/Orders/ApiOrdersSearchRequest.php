@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\Orders;
 
 use App\Http\Requests\Request;
 
-class ApiAuthRequest extends Request
+class ApiOrdersSearchRequest extends Request
 {
     public function __construct()
     {
@@ -19,21 +19,21 @@ class ApiAuthRequest extends Request
     public function rules()
     {
         return [
-            'access_token'                  => 'required|max:255|api_access_token',
+            'order_id'                      => 'numeric|digits_between:1,10',
         ];
     }
 
     public function attributes()
     {
         return [
-            'access_token'                  => 'アクセストークン',
+            'order_id'                      => '受注ID',
         ];
     }
 
     public function messages()
     {
         return [
-            'access_token.api_access_token' => trans('validation.custom.access_token.api_access_token'),
+            //
         ];
     }
 

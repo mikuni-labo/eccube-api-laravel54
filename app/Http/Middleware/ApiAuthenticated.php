@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\Requests\ApiAuthRequest;
+use App\Http\Requests\Api\ApiAuthRequest;
 use Closure;
 use Symfony\Component\HttpFoundation\Response;
 use Validator;
