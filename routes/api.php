@@ -45,4 +45,6 @@ Route::middleware('api')
     * test
     */
     Route::name('api.test')->get('test', TestController::class. '@test');
+    
+    Route::name('api.users')->get('users', UsersController::class. '@index');
 });
