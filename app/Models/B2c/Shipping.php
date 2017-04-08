@@ -14,10 +14,8 @@ class Shipping extends AbstractB2cModel
     public $incrementing = true;
     
     protected $table = 'dtb_shipping';
-    protected $primaryKey = [
-        'order_id',
-        'shipping_id',
-    ];
+    protected $dateFormat = 'Y-m-d H:i:s';
+    protected $primaryKey = 'order_id';
     
     protected $fillable = [
         //
@@ -28,7 +26,9 @@ class Shipping extends AbstractB2cModel
     ];
 
     protected $dates = [
-        //
+        'create_date',
+        'update_date',
+        'shipping_commit_date',
     ];
 
     protected $casts = [

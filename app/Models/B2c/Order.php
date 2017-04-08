@@ -14,8 +14,8 @@ class Order extends AbstractB2cModel
     public $incrementing = true;
     
     protected $table = 'dtb_order';
-    protected $primaryKey = 'order_id';
     protected $dateFormat = 'Y-m-d H:i:s';
+    protected $primaryKey = 'order_id';
     
     protected $fillable = [
         //

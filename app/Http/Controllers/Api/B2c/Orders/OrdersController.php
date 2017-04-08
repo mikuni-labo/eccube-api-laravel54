@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api\B2c\Orders;
 
 use App\Http\Controllers\Controller;
 use App\Models\B2c\Order;
+use App\Models\B2c\OrderDetail;
+use App\Models\B2c\Shipping;
 
 class OrdersController extends Controller
 {
@@ -17,21 +19,67 @@ class OrdersController extends Controller
     public function index()
     {
         $this->data['orders'] = [];
-        
-        $this->setOrders();
+        $this->data['orders'][] = $this->setOrders();
         
         return response()->json($this->data);
     }
 
-    private function setOrders()
+    private function setOrders() : array
     {
+        $orders = [];
+        
         foreach ( Order::all() as $Order )
         {
-            dd( $Order->shippings()->get() );
-            
-            $Order->orderDetails = $Order->order_details()->get();
-            $this->data['orders'][] = $Order;
+            $orders[] = $this->setOrder($Order);
         }
+        
+        return $orders;
+    }
+
+    private function setOrder(Order $Order) : array
+    {
+        $order = $Order->toArray();
+        
+        $order['details']   = $this->setDetails($Order);
+        $order['shippings'] = $this->setShippings($Order);
+        
+        return $order;
+    }
+
+    private function setDetails(Order $Order) : array
+    {
+        $details = [];
+//         return $Order->order_details()->get()->toArray();// これでも成立する
+        
+        foreach ( $Order->order_details()->get() as $Detail)
+        {
+            $details[] = $this->setDetail($Detail);
+        }
+        
+        return $details;
+    }
+
+    private function setDetail(OrderDetail $Detail) : array
+    {
+        return $Detail->attributesToArray();
+    }
+
+    private function setShippings(Order $Order) : array
+    {
+        $shippings = [];
+//         return $Order->shippings()->get()->toArray();// これでも成立する
+        
+        foreach ( $Order->shippings()->get() as $Shipping)
+        {
+            $shippings[] = $this->setShipping($Shipping);
+        }
+        
+        return $shippings;
+    }
+
+    private function setShipping(Shipping $Shipping) : array
+    {
+        return $Shipping->attributesToArray();
     }
 
 }
