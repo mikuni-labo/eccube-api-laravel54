@@ -33,7 +33,34 @@ class Order extends AbstractB2cModel
     ];
 
     protected $casts = [
-        //
+        'order_id'         => 'int',
+        'customer_id'      => 'int',
+        'order_tel01'      => 'int',
+        'order_tel02'      => 'int',
+        'order_tel03'      => 'int',
+        'order_zip01'      => 'int',
+        'order_zip02'      => 'int',
+        'order_zipcode'    => 'int',
+        'order_country_id' => 'int',
+        'order_pref'       => 'int',
+        'order_sex'        => 'int',
+        'order_birth'      => 'int',
+        'order_job'        => 'int',
+        'subtotal'         => 'int',
+        'discount'         => 'int',
+        'deliv_id'         => 'int',
+        'deliv_fee'        => 'int',
+        'charge'           => 'int',
+        'use_point'        => 'int',
+        'add_point'        => 'int',
+        'birth_point'      => 'int',
+        'tax'              => 'int',
+        'total'            => 'int',
+        'payment_total'    => 'int',
+        'payment_id'       => 'int',
+        'status'           => 'int',
+        'device_type_id'   => 'int',
+        'del_flg'          => 'int',
     ];
 
     /**

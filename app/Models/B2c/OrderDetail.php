@@ -25,7 +25,15 @@ class OrderDetail extends AbstractB2cModel
     ];
 
     protected $casts = [
-        //
+        'order_detail_id'  => 'int',
+        'order_id'         => 'int',
+        'product_id'       => 'int',
+        'product_class_id' => 'int',
+        'price'            => 'int',
+        'quantity'         => 'int',
+        'point_rate'       => 'int',
+        'tax_rate'         => 'int',
+        'tax_rule'         => 'int',
     ];
 
     /**

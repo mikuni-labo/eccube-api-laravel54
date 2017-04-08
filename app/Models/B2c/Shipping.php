@@ -28,11 +28,27 @@ class Shipping extends AbstractB2cModel
     protected $dates = [
         'create_date',
         'update_date',
+        'shipping_date',
         'shipping_commit_date',
     ];
 
     protected $casts = [
-        //
+        'shipping_id'         => 'int',
+        'order_id'            => 'int',
+        'shipping_tel01'      => 'int',
+        'shipping_tel02'      => 'int',
+        'shipping_tel03'      => 'int',
+        'shipping_fax01'      => 'int',
+        'shipping_fax02'      => 'int',
+        'shipping_fax03'      => 'int',
+        'shipping_country_id' => 'int',
+        'shipping_pref'       => 'int',
+        'shipping_zip01'      => 'int',
+        'shipping_zip02'      => 'int',
+        'shipping_zipcode'    => 'int',
+        'time_id'             => 'int',
+        'rank'                => 'int',
+        'del_flg'             => 'int',
     ];
 
     /**

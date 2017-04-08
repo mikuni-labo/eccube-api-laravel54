@@ -6,22 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\B2c\Order;
 use App\Models\B2c\OrderDetail;
 use App\Models\B2c\Shipping;
+use Illuminate\Http\JsonResponse;
 
 class OrdersController extends Controller
 {
-    private $data = [];
-    
+    private $json = [];
+
     public function __construct()
     {
         //
     }
-    
-    public function index()
+
+    public function index() : JsonResponse
     {
-        $this->data['orders'] = [];
-        $this->data['orders'][] = $this->setOrders();
+        $this->json['orders'] = [];
+        $this->json['orders'][] = $this->setOrders();
         
-        return response()->json($this->data);
+        return response()->json($this->json, 200);
     }
 
     private function setOrders() : array
