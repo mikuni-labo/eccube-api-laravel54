@@ -27,7 +27,7 @@ class Controller extends BaseController
                     'code'     => $code,
                     'message'  => Response::$statusTexts[$code],
                 ],
-                'messages' => $Validator->errors(),
+                'detail' => $Validator->errors(),
             ],
         ], $code);
     }

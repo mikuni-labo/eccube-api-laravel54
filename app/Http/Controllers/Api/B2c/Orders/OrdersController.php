@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api\B2c\Orders;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Orders\ApiOrdersSearchRequest;
 use App\Models\B2c\Order;
-use App\Models\B2c\OrderDetail;
 use App\Models\B2c\ShipmentItem;
 use App\Models\B2c\Shipping;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +17,7 @@ class OrdersController extends Controller
 
     public function __construct()
     {
-        //
+        $this->json['orders'] = [];
     }
 
     public function index(ApiOrdersSearchRequest $ApiOrdersSearchRequest) : JsonResponse
@@ -27,8 +26,7 @@ class OrdersController extends Controller
         
         if( $Validator->fails() ) return $this->responseError($Validator, Response::HTTP_BAD_REQUEST);
         
-        $this->json['orders'] = [];
-        $this->json['orders'][] = $this->setOrders();
+        $this->json['orders'] = $this->setOrders();
         
         return response()->json($this->json, Response::HTTP_OK);
     }
@@ -45,38 +43,17 @@ class OrdersController extends Controller
         return $orders;
     }
 
-    private function setOrder(Order $Order) : array
+    private function setOrder(Order $Order) : Order
     {
-        $order = $Order->toArray();
+        $Order->details   = $Order->order_details()->get();
+        $Order->shippings = $this->setShippings($Order);
         
-        $order['details']   = $this->setDetails($Order);
-        $order['shippings'] = $this->setShippings($Order);
-        
-        return $order;
-    }
-
-    private function setDetails(Order $Order) : array
-    {
-        $details = [];
-//         return $Order->order_details()->get()->toArray();// これでも成立する
-        
-        foreach ( $Order->order_details()->get() as $Detail)
-        {
-            $details[] = $this->setDetail($Detail);
-        }
-        
-        return $details;
-    }
-
-    private function setDetail(OrderDetail $Detail) : array
-    {
-        return $Detail->attributesToArray();
+        return $Order;
     }
 
     private function setShippings(Order $Order) : array
     {
         $shippings = [];
-//         return $Order->shippings()->get()->toArray();// これでも成立する
         
         foreach ( $Order->shippings()->get() as $Shipping)
         {
@@ -86,21 +63,14 @@ class OrdersController extends Controller
         return $shippings;
     }
 
-    private function setShipping(Shipping $Shipping) : array
+    private function setShipping(Shipping $Shipping) : Shipping
     {
-        $shipping = $Shipping->attributesToArray();
-        
         foreach ( $Shipping->shipment_items()->get() as $ShipmentItem )
         {
-            $shipping['items'][] = $this->setShipmentItem($ShipmentItem);
+            $Shipping->items = $Shipping->shipment_items()->get();
         }
         
-        return $shipping;
-    }
-
-    private function setShipmentItem(ShipmentItem $ShipmentItem) : array
-    {
-        return $ShipmentItem->attributesToArray();
+        return $Shipping;
     }
 
 }

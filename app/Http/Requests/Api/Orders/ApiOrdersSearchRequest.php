@@ -19,14 +19,14 @@ class ApiOrdersSearchRequest extends Request
     public function rules()
     {
         return [
-            'order_id'                      => 'numeric|digits_between:1,10',
+            'order_id'   => 'numeric|digits_between:1,10',
         ];
     }
 
     public function attributes()
     {
         return [
-            'order_id'                      => '受注ID',
+            'order_id'   => '受注ID',
         ];
     }
 
