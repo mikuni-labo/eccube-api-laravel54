@@ -4,6 +4,7 @@ namespace App\Models\B2c;
 
 use App\Models\B2c\AbstractB2cModel;
 use App\Scopes\AliveScope;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Order extends AbstractB2cModel
 {
@@ -68,7 +69,7 @@ class Order extends AbstractB2cModel
      *
      * @return void
      */
-    protected static function boot()
+    protected static function boot() : void
     {
         parent::boot();
         
@@ -78,9 +79,9 @@ class Order extends AbstractB2cModel
     /**
      * 紐付く受注詳細
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function order_details()
+    public function order_details() : HasMany
     {
         return $this->hasMany('App\Models\B2c\OrderDetail','order_id');
     }
@@ -88,9 +89,9 @@ class Order extends AbstractB2cModel
     /**
      * 紐付く配送先
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function shippings()
+    public function shippings() : HasMany
     {
         return $this->hasMany('App\Models\B2c\Shipping','order_id');
     }

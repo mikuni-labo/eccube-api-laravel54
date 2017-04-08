@@ -3,6 +3,7 @@
 namespace App\Models\B2c;
 
 use App\Models\B2c\AbstractB2cModel;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderDetail extends AbstractB2cModel
 {
@@ -39,9 +40,9 @@ class OrderDetail extends AbstractB2cModel
     /**
      * 属する受注情報
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function order()
+    public function order() : BelongsTo
     {
         return $this->belongsTo('App\Models\B2c\Order', 'order_id');
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\B2c\Orders;
 use App\Http\Controllers\Controller;
 use App\Models\B2c\Order;
 use App\Models\B2c\OrderDetail;
+use App\Models\B2c\ShipmentItem;
 use App\Models\B2c\Shipping;
 use Illuminate\Http\JsonResponse;
 
@@ -80,7 +81,19 @@ class OrdersController extends Controller
 
     private function setShipping(Shipping $Shipping) : array
     {
-        return $Shipping->attributesToArray();
+        $shipping = $Shipping->attributesToArray();
+        
+        foreach ( $Shipping->shipment_items()->get() as $ShipmentItem )
+        {
+            $shipping['items'][] = $this->setShipmentItem($ShipmentItem);
+        }
+        
+        return $shipping;
+    }
+
+    private function setShipmentItem(ShipmentItem $ShipmentItem) : array
+    {
+        return $ShipmentItem->attributesToArray();
     }
 
 }

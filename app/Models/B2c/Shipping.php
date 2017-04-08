@@ -3,7 +3,10 @@
 namespace App\Models\B2c;
 
 use App\Models\B2c\AbstractB2cModel;
+use App\Models\B2c\ShipmentItem;
 use App\Scopes\AliveScope;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Shipping extends AbstractB2cModel
 {
@@ -52,11 +55,11 @@ class Shipping extends AbstractB2cModel
     ];
 
     /**
-     * モデルの「初期起動」メソッド
+     * 初期起動
      *
      * @return void
      */
-    protected static function boot()
+    protected static function boot() : void
     {
         parent::boot();
         
@@ -66,11 +69,32 @@ class Shipping extends AbstractB2cModel
     /**
      * 属する受注情報
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function order()
+    public function order() : BelongsTo
     {
         return $this->belongsTo('App\Models\B2c\Order', 'order_id');
+    }
+
+    /**
+     * 紐付く配送商品
+     * 
+     * @return Builder
+     */
+    public function shipment_items() : Builder
+    {
+        $query = ShipmentItem::query();
+        $query->select('dtb_shipment_item.*');
+        
+        $query->join('dtb_shipping', function ($join){
+            $join->on('dtb_shipping.order_id', '=', 'dtb_shipment_item.order_id');
+            $join->on('dtb_shipping.shipping_id', '=', 'dtb_shipment_item.shipping_id');
+        });
+        
+        $query->where('dtb_shipment_item.order_id',    '=', $this->order_id);
+        $query->where('dtb_shipment_item.shipping_id', '=', $this->shipping_id);
+        
+        return $query;
     }
 
 }
