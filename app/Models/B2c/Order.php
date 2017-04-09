@@ -29,6 +29,7 @@ class Order extends AbstractB2cModel
     protected $dates = [
         'create_date',
         'update_date',
+        'order_birth',
         'commit_date',
         'payment_date',
     ];
@@ -94,6 +95,34 @@ class Order extends AbstractB2cModel
     public function shippings() : HasMany
     {
         return $this->hasMany('App\Models\B2c\Shipping','order_id');
+    }
+
+    /**
+     * アクセサ定義
+     */
+    public function getCreateDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getUpdateDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getOrderBirthAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getCommitDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getPaymentDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
     }
 
 }

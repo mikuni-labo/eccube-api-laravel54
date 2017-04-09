@@ -97,4 +97,27 @@ class Shipping extends AbstractB2cModel
         return $query;
     }
 
+    /**
+     * アクセサ定義
+     */
+    public function getCreateDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getUpdateDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getShippingDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
+    public function getShippingCommitDateAttribute($value)
+    {
+        return $value ? \Carbon::parse($value)->format('c') : null;
+    }
+
 }
