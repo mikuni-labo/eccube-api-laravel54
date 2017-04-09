@@ -70,10 +70,22 @@ class ApiOrdersService
 
     private function setOrder(Order $Order) : Order
     {
-        $Order->details   = $Order->order_details();
+        $Order->details   = $this->setOrderDetails($Order);
         $Order->shippings = $this->setShippings($Order);
         
         return $Order;
+    }
+
+    private function setOrderDetails(Order $Order) : array
+    {
+        $details = [];
+        
+        foreach ( $Order->order_details()->get() as $OrderDetail)
+        {
+            $details[] = $OrderDetail;
+        }
+        
+        return $details;
     }
 
     private function setShippings(Order $Order) : array
@@ -90,12 +102,21 @@ class ApiOrdersService
 
     private function setShipping(Shipping $Shipping) : Shipping
     {
-        foreach ( $Shipping->shipment_items()->get() as $ShipmentItem )
-        {
-            $Shipping->items = $Shipping->shipment_items()->get();
-        }
+        $Shipping->items = $this->setShipmentItems($Shipping);
         
         return $Shipping;
+    }
+
+    private function setShipmentItems(Shipping $Shipping) : array
+    {
+        $shipmentItems = [];
+        
+        foreach ( $Shipping->shipment_items()->get() as $ShipmentItem )
+        {
+            $shipmentItems[] = $ShipmentItem;
+        }
+        
+        return $shipmentItems;
     }
 
     public function getJson()
