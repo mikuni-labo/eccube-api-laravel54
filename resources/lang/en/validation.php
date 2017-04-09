@@ -99,7 +99,7 @@ return [
 
     'custom' => [
         'access_token'     => [
-            'api_access_token' => ':attribute is InValid.',
+            'api_access_token' => 'The :attribute is invalid.',
         ],
     ],
 

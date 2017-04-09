@@ -26,7 +26,7 @@ class ApiAuthRequest extends Request
     public function attributes()
     {
         return [
-            'access_token'                  => 'アクセストークン',
+//             'access_token'                  => 'アクセストークン',
         ];
     }
 
