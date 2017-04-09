@@ -19,7 +19,16 @@ class ApiOrdersSearchRequest extends Request
     public function rules()
     {
         return [
-            'order_id'   => 'numeric|digits_between:1,10',
+            'order_id'          => 'numeric|min:1|digits_between:1,10',
+            'create_date:start' => 'date_format:Y-m-d H:i:s',
+            'create_date:end'   => 'date_format:Y-m-d H:i:s',
+            'update_date:start' => 'date_format:Y-m-d H:i:s',
+            'update_date:end'   => 'date_format:Y-m-d H:i:s',
+            'status'            => ['regex:/^[\d|\,]+$/'],
+            'limit'             => 'numeric|min:1|digits_between:1,10',
+//             'offset'            => 'numeric|digits_between:1,10',
+            'page'              => 'numeric|min:1|digits_between:1,10',
+            'sort'              => 'max:255|in:'. implode(',', $this->getAllowedSortFields()),
         ];
     }
 
@@ -34,6 +43,16 @@ class ApiOrdersSearchRequest extends Request
     {
         return [
             //
+        ];
+    }
+
+    private function getAllowedSortFields()
+    {
+        return [
+            'create_date:asc',
+            'create_date:desc',
+            'update_date:asc',
+            'update_date:desc',
         ];
     }
 
